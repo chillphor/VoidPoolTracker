@@ -1,0 +1,8 @@
+## Interface: 120005
+## Title: Void Pool Tracker
+## Notes: 监控大秘境虚空池掉落清单
+## Author: YourName
+## Version: 1.0
+## SavedVariablesPerCharacter: VoidPool_DB, VoidPool_MinimapDB
+
+core.lua
