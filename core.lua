@@ -380,7 +380,7 @@ miniBtn:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight
 
 local icon = miniBtn:CreateTexture(nil, "BACKGROUND")
 icon:SetTexture(7658128)
-icon:SetSize(21, 21)
+icon:SetSize(20, 20)
 icon:SetPoint("CENTER", 0, 0)
 
 local border = miniBtn:CreateTexture(nil, "OVERLAY")
