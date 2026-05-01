@@ -1,8 +1,15 @@
 ## Interface: 120005
-## Title: Void Pool Tracker
-## Notes: 监控大秘境虚空池掉落清单
-## Author: YourName
+## Title: |cff00ffffVoidPoolTracker|r
+## Notes: 虚空宝箱全账号进度查询插件。
+## Author: Cedric 尽是风流
 ## Version: 1.0
-## SavedVariablesPerCharacter: VoidPool_DB, VoidPool_MinimapDB
+## DefaultState: enabled
 
+## 关键设置：全账号共享数据库
+## SavedVariables: VoidPool_DB, VoidPool_MinimapDB
+
+# 载入核心逻辑文件
 core.lua
+
+
+
