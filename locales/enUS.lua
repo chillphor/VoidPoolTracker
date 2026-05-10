@@ -1,0 +1,49 @@
+local L = {}
+
+-- UI Panel Titles
+L["PANEL_TITLE"] = "Void Pool Account-Wide Loot Query"
+L["LOOT_REMAINING"] = "Remaining"
+
+-- Buttons
+L["BUTTON_SYNC"] = "Sync"
+L["BUTTON_ANNOUNCE"] = "Announce"
+L["BUTTON_SELECT_CHARACTER"] = "Select Character"
+L["BUTTON_CLOSE"] = "Close"
+
+-- Dungeons
+L["DUNGEON_ACADEMY"] = "Academy of Aeons"
+L["DUNGEON_PLATFORM"] = "Mage's Terrace"
+L["DUNGEON_NODE"] = "Zekvir's Lair"
+L["DUNGEON_MINES"] = "Sarkareth's Lair"
+L["DUNGEON_CONCLAVE"] = "Conclave of the Chosen"
+L["DUNGEON_PEAK"] = "Nerub-ar Palace"
+L["DUNGEON_WINDRUNNER"] = "Windrunner's Spire"
+L["DUNGEON_MESARA"] = "Mykazal's Den"
+
+-- Messages
+L["MSG_SYNC_SUCCESS"] = "[Void Query]: %s data synced successfully"
+L["MSG_SYSTEM_LOADING"] = "[Void Query]: System is loading, please try again later"
+L["MSG_DATA_NOT_READY"] = "[Void Query]: Data is not ready, please try again later"
+L["MSG_NO_GROUP"] = "[Void Query]: Not in a group, cannot announce"
+L["MSG_NO_DATA"] = "[Void Query]: No data in database, cannot announce"
+L["MSG_LOADING"] = "Loading... Please refresh"
+L["MSG_NO_RECORDS"] = "No records for this character in the database, please click the sync button in the top right"
+
+-- Chat Announcements
+L["ANNOUNCE_HEADER"] = "=== Remaining Pool-%s ==="
+L["ANNOUNCE_CHARACTER"] = "Character: %s"
+
+-- Character colors
+L["YOUR_CHARACTER"] = "|cff00ff00"  -- Green
+L["OTHER_CHARACTER"] = "|cff00ccff" -- Cyan
+L["GRAY_TEXT"] = "|cff888888"       -- Gray
+L["RED_TEXT"] = "|cffff0000"        -- Red
+L["PURPLE_TEXT"] = "|cffa335ee"     -- Purple
+L["CYAN_TEXT"] = "|cff00ffff"       -- Cyan
+
+-- Time formats
+L["TIME_HOUR"] = "%dh"
+L["TIME_MINUTE"] = "%dm"
+L["TIME_SECOND"] = "%ds"
+
+return L
