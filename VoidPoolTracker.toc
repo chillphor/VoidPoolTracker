@@ -1,6 +1,7 @@
 ## Interface: 120005
 ## Title: |cff00ffffVoidPoolTracker|r
 ## Notes: 虚空宝箱全账号进度查询插件。
+## Notes-enUS: Account-wide void pool loot query addon.
 ## Author: Cedric 尽是风流
 ## Version: 1.0
 ## DefaultState: enabled
@@ -8,8 +9,9 @@
 ## 关键设置：全账号共享数据库
 ## SavedVariables: VoidPool_DB, VoidPool_MinimapDB
 
-# 载入核心逻辑文件
+# 本地化文件
+locales/enUS.lua
+locales/zhCN.lua
+
+# 载入核心逻辑文��
 core.lua
-
-
-
