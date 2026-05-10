@@ -1,24 +1,43 @@
--- 1. 配置数据：副本宝箱列表
--- 【修改】：为每个副本添加 spellID
+-- 1. 加载本地化文件
+local locale = GetLocale()
+local localeFile = "locales/" .. (locale == "zhCN" and "zhCN" or "enUS")
+local L = loadstring("return " .. (locale == "zhCN" and require("locales.zhCN") or require("locales.enUS")))() or {}
+
+-- 设置默认备用文本（以防加载失败）
+if not L or not next(L) then
+    L = {
+        ["DUNGEON_ACADEMY"] = "Academy of Aeons",
+        ["DUNGEON_PLATFORM"] = "Mage's Terrace",
+        ["DUNGEON_NODE"] = "Zekvir's Lair",
+        ["DUNGEON_MINES"] = "Sarkareth's Lair",
+        ["DUNGEON_CONCLAVE"] = "Conclave of the Chosen",
+        ["DUNGEON_PEAK"] = "Nerub-ar Palace",
+        ["DUNGEON_WINDRUNNER"] = "Windrunner's Spire",
+        ["DUNGEON_MESARA"] = "Mykazal's Den",
+    }
+end
+
+-- 2. 配置数据：副本宝箱列表
+-- 【修改】：为每个副本添加 spellID 并使用本地化名称
 local DUNGEON_LIST = {
-    { name = "艾杰斯亚学院", id = 268465, spellID = 393273 },
-    { name = "魔导师平台",   id = 268466, spellID = 1254572 },
-    { name = "节点希纳斯",   id = 268467, spellID = 1254563 },
-    { name = "萨隆矿坑",     id = 268468, spellID = 1254555 },
-    { name = "执政团之座",   id = 268469, spellID = 1254551 },
-    { name = "通天峰",       id = 268470, spellID = 159898 },
-    { name = "风行者之塔",   id = 268471, spellID = 1254400 },
-    { name = "迈萨拉洞窟",   id = 268473, spellID = 1254559 },
+    { name = L["DUNGEON_ACADEMY"] or "Academy of Aeons", id = 268465, spellID = 393273 },
+    { name = L["DUNGEON_PLATFORM"] or "Mage's Terrace", id = 268466, spellID = 1254572 },
+    { name = L["DUNGEON_NODE"] or "Zekvir's Lair", id = 268467, spellID = 1254563 },
+    { name = L["DUNGEON_MINES"] or "Sarkareth's Lair", id = 268468, spellID = 1254555 },
+    { name = L["DUNGEON_CONCLAVE"] or "Conclave of the Chosen", id = 268469, spellID = 1254551 },
+    { name = L["DUNGEON_PEAK"] or "Nerub-ar Palace", id = 268470, spellID = 159898 },
+    { name = L["DUNGEON_WINDRUNNER"] or "Windrunner's Spire", id = 268471, spellID = 1254400 },
+    { name = L["DUNGEON_MESARA"] or "Mykazal's Den", id = 268473, spellID = 1254559 },
 }
 
 -- [新增] 辅助函数：格式化时间
 local function FormatCooldownTime(seconds)
     if seconds >= 3600 then
-        return string.format("%dh", math.floor(seconds / 3600))
+        return string.format(L["TIME_HOUR"] or "%dh", math.floor(seconds / 3600))
     elseif seconds >= 60 then
-        return string.format("%dm", math.floor(seconds / 60))
+        return string.format(L["TIME_MINUTE"] or "%dm", math.floor(seconds / 60))
     else
-        return string.format("%ds", math.floor(seconds))
+        return string.format(L["TIME_SECOND"] or "%ds", math.floor(seconds))
     end
 end
 
@@ -54,7 +73,7 @@ local function GetPlayerKey()
     return GetUnitName("player", true) .. "-" .. GetRealmName()
 end
 
--- 2. 创建主面板
+-- 3. 创建主面板
 local f = CreateFrame("Frame", "VoidPoolPanel", UIParent, "BackdropTemplate")
 f:SetSize(520, 350) 
 f:SetPoint("CENTER")
@@ -77,7 +96,7 @@ f:SetBackdropColor(0, 0, 0, 0.9)
 
 f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 f.title:SetPoint("TOPLEFT", 125, -12)
-f.title:SetText("|cff00ffff虚空宝箱全账号查询|r")
+f.title:SetText((L["CYAN_TEXT"] or "|cff00ffff") .. (L["PANEL_TITLE"] or "Void Pool Account-Wide Loot Query") .. "|r")
 
 f.close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 f.close:SetPoint("TOPRIGHT", 0, 0)
@@ -86,7 +105,7 @@ f.close:SetPoint("TOPRIGHT", 0, 0)
 f.scanBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 f.scanBtn:SetSize(70, 30)
 f.scanBtn:SetPoint("TOPRIGHT", -40, -40)
-f.scanBtn:SetText("同步")
+f.scanBtn:SetText(L["BUTTON_SYNC"] or "Sync")
 f.scanBtn:SetScript("OnClick", function()
     f:ScanAndSave()
 end)
@@ -95,12 +114,12 @@ end)
 f.announceBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 f.announceBtn:SetSize(70, 30)
 f.announceBtn:SetPoint("TOP", f.scanBtn, "BOTTOM", 0, -200)
-f.announceBtn:SetText("发送")
+f.announceBtn:SetText(L["BUTTON_ANNOUNCE"] or "Announce")
 f.announceBtn:SetScript("OnClick", function()
     f:Announce()
 end)
 
--- 3. 创建左侧导航菜单
+-- 4. 创建左侧导航菜单
 f.menu = CreateFrame("Frame", nil, f)
 -- 修改：改为靠左对齐 (TOPLEFT)
 f.menu:SetPoint("TOPLEFT", 10, -40) 
@@ -182,7 +201,7 @@ for i, data in ipairs(DUNGEON_LIST) do
     UpdatePortalState(portalBtn, data.spellID)
 end
 
--- 4. 滚动显示区
+-- 5. 滚动显示区
 local scrollFrame = CreateFrame("ScrollFrame", "VoidPoolScrollFrame", f, "UIPanelScrollFrameTemplate")
 -- 修改：左侧留出菜单宽度（125），右侧留出少量边距（20）
 scrollFrame:SetPoint("TOPLEFT", 150, -40)
@@ -199,7 +218,7 @@ f.text:SetPoint("TOP", content, "TOP", 0, 0)
 f.text:SetWidth(300)
 f.text:SetJustifyH("LEFT")
 
--- 5. 右侧筛选下拉框
+-- 6. 右侧筛选下拉框
 f.filterDropDown = CreateFrame("Frame", "VoidPoolFilterDropDown", f, "UIDropDownMenuTemplate")
 f.filterDropDown:SetPoint("TOPRIGHT", -10, -8) -- 调整位置避开扫描按钮
 
@@ -208,7 +227,7 @@ local function FilterDropDown_Initialize(self, level)
     local info = UIDropDownMenu_CreateInfo()
     local myKey = GetPlayerKey()
 
-    info.text = "选择查看角色"
+    info.text = L["BUTTON_SELECT_CHARACTER"] or "Select Character"
     info.isTitle = true
     info.notCheckable = true
     UIDropDownMenu_AddButton(info)
@@ -220,7 +239,7 @@ local function FilterDropDown_Initialize(self, level)
     for _, pKey in ipairs(keys) do
         info = UIDropDownMenu_CreateInfo()
         local nameOnly = pKey:match("([^-]+)") or pKey
-        info.text = (pKey == myKey and "|cff00ff00" or "|cff00ccff") .. nameOnly .. "|r"
+        info.text = (pKey == myKey and (L["YOUR_CHARACTER"] or "|cff00ff00") or (L["OTHER_CHARACTER"] or "|cff00ccff")) .. nameOnly .. "|r"
         info.isNotRadio = false 
         info.keepShownOnClick = false 
         if VoidPool_DB.filter[pKey] == nil then VoidPool_DB.filter[pKey] = false end
@@ -239,7 +258,7 @@ end
 function f:UpdateFilterList()
     UIDropDownMenu_Initialize(f.filterDropDown, FilterDropDown_Initialize)
     UIDropDownMenu_SetWidth(f.filterDropDown, 90)
-    local currentSelection = "选择角色"
+    local currentSelection = L["BUTTON_SELECT_CHARACTER"] or "Select Character"
     if VoidPool_DB and VoidPool_DB.filter then
         for k, v in pairs(VoidPool_DB.filter) do
             if v then currentSelection = k:match("([^-]+)") or k; break end
@@ -248,7 +267,7 @@ function f:UpdateFilterList()
     UIDropDownMenu_SetText(f.filterDropDown, currentSelection)
 end
 
--- 6. 扫描与刷新逻辑
+-- 7. 扫描与刷新逻辑
 local scanner = CreateFrame("GameTooltip", "VoidPoolScanner", nil, "GameTooltipTemplate")
 scanner:SetOwner(WorldFrame, "ANCHOR_NONE")
 
@@ -256,7 +275,7 @@ scanner:SetOwner(WorldFrame, "ANCHOR_NONE")
 function f:ScanAndSave()
     local itemID = self.targetID or DUNGEON_LIST[1].id
     local _, link = GetItemInfo(itemID)
-    if not link then print("|cffff0000[虚空查询]: 数据未就绪，请稍后再试|r"); return end
+    if not link then print((L["RED_TEXT"] or "|cffff0000") .. (L["MSG_DATA_NOT_READY"] or "[Void Query]: Data is not ready, please try again later") .. "|r"); return end
 
     scanner:ClearLines()
     scanner:SetHyperlink(link)
@@ -268,7 +287,7 @@ function f:ScanAndSave()
         if leftLine then
             local text = leftLine:GetText()
             if text and (text:find("- ") or text:find("· ") or text:find("• ") or text:find("%* ")) then
-                table.insert(currentLoot, "|cffa335ee" .. text .. "|r")
+                table.insert(currentLoot, (L["PURPLE_TEXT"] or "|cffa335ee") .. text .. "|r")
                 foundHeader = true
             end
         end
@@ -278,10 +297,10 @@ function f:ScanAndSave()
     if foundHeader then
         if not VoidPool_DB.lootData[myKey] then VoidPool_DB.lootData[myKey] = {} end
         VoidPool_DB.lootData[myKey][itemID] = currentLoot
-        print(string.format("|cff00ff00[虚空查询]: %s 数据同步成功|r", GetItemInfo(itemID)))
+        print(string.format((L["YOUR_CHARACTER"] or "|cff00ff00") .. (L["MSG_SYNC_SUCCESS"] or "[Void Query]: %s data synced successfully") .. "|r", GetItemInfo(itemID)))
         f:Refresh() -- 扫描完刷新显示
     else
-        print("|cffff0000[虚空查询]: 系统正在加载，请稍后再试|r")
+        print((L["RED_TEXT"] or "|cffff0000") .. (L["MSG_SYSTEM_LOADING"] or "[Void Query]: System is loading, please try again later") .. "|r")
     end
 end
 
@@ -297,7 +316,7 @@ function f:Announce()
                   or IsInGroup() and "PARTY"
     
     if not chatType then 
-        print("|cffff0000[虚空查询]: 未在队伍中，无法发送通报|r")
+        print((L["RED_TEXT"] or "|cffff0000") .. (L["MSG_NO_GROUP"] or "[Void Query]: Not in a group, cannot announce") .. "|r")
         return 
     end
 
@@ -311,11 +330,11 @@ function f:Announce()
         -- 只通报当前选中的角色（或全部，遵循过滤规则）
         if VoidPool_DB.filter[pKey] ~= false and pData[itemID] and #pData[itemID] > 0 then
             if not announced then
-                SendChatMessage("=== 剩余奖池-" .. name .. " ===", chatType)
+                SendChatMessage(string.format(L["ANNOUNCE_HEADER"] or "=== Remaining Pool-%s ===", name), chatType)
                 announced = true
             end
             
-            SendChatMessage("角色: " .. pKey, chatType)
+            SendChatMessage(string.format(L["ANNOUNCE_CHARACTER"] or "Character: %s", pKey), chatType)
             for _, lootLine in ipairs(pData[itemID]) do
                 -- 清除颜色代码并发送
                 local cleanText = lootLine:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
@@ -325,7 +344,7 @@ function f:Announce()
     end
 
     if not announced then
-        print("|cffff0000[虚空查询]: 数据库中暂无记录，无法通报|r")
+        print((L["RED_TEXT"] or "|cffff0000") .. (L["MSG_NO_DATA"] or "[Void Query]: No data in database, cannot announce") .. "|r")
     end
 end
 
@@ -339,11 +358,11 @@ function f:Refresh()
     
     if not link then
         if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(itemID) end
-        f.text:SetText("|cffff0000加载中...请刷新|r")
+        f.text:SetText((L["RED_TEXT"] or "|cffff0000") .. (L["MSG_LOADING"] or "Loading... Please refresh") .. "|r")
         return
     end
 
-    f.title:SetText("剩余".."|cff00ffff" .. name .. "|r")
+    f.title:SetText((L["LOOT_REMAINING"] or "Remaining") .. (L["CYAN_TEXT"] or "|cff00ffff") .. name .. "|r")
     local myKey = GetPlayerKey()
     local displayLines = {}
     
@@ -354,8 +373,8 @@ function f:Refresh()
     for _, pKey in ipairs(keys) do
         local pData = VoidPool_DB.lootData[pKey]
         if VoidPool_DB.filter[pKey] ~= false and pData[itemID] and #pData[itemID] > 0 then
-            local color = (pKey == myKey) and "|cff00ff00" or "|cff00ccff"
-            table.insert(displayLines, color .. "角色: " .. pKey .. "|r")
+            local color = (pKey == myKey) and (L["YOUR_CHARACTER"] or "|cff00ff00") or (L["OTHER_CHARACTER"] or "|cff00ccff")
+            table.insert(displayLines, string.format(color .. (L["ANNOUNCE_CHARACTER"] or "Character: %s") .. "|r", pKey))
             for _, lootLine in ipairs(pData[itemID]) do
                 table.insert(displayLines, "  " .. lootLine)
             end
@@ -366,13 +385,13 @@ function f:Refresh()
     if #displayLines > 0 then
         f.text:SetText(table.concat(displayLines, "\n"))
     else
-        f.text:SetText("|cff888888数据库中暂无该角色记录，请点击右上角“同步当前数据”|r")
+        f.text:SetText((L["GRAY_TEXT"] or "|cff888888") .. (L["MSG_NO_RECORDS"] or "No records for this character in the database, please sync") .. "|r")
     end
     
     content:SetHeight(f.text:GetStringHeight() + 40)
 end
 
--- 7. 小地图按钮逻辑 
+-- 8. 小地图按钮逻辑 
 local miniBtn = CreateFrame("Button", "VoidPoolMinimapButton", Minimap)
 miniBtn:SetSize(31, 31)
 miniBtn:SetFrameLevel(10)
@@ -422,7 +441,7 @@ miniBtn:SetScript("OnClick", function(self, button)
     end
 end)
 
--- 8. 初始化
+-- 9. 初始化
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == "VoidPoolTracker" then
