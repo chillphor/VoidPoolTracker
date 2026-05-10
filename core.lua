@@ -1,7 +1,13 @@
 -- 1. 加载本地化文件
 local locale = GetLocale()
-local localeFile = "locales/" .. (locale == "zhCN" and "zhCN" or "enUS")
-local L = loadstring("return " .. (locale == "zhCN" and require("locales.zhCN") or require("locales.enUS")))() or {}
+local L = {}
+
+-- 直接加载对应语言的本地化文件
+if locale == "zhCN" then
+    L = require("locales.zhCN")
+else
+    L = require("locales.enUS")
+end
 
 -- 设置默认备用文本（以防加载失败）
 if not L or not next(L) then
