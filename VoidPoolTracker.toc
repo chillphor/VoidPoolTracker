@@ -13,5 +13,5 @@
 locales/enUS.lua
 locales/zhCN.lua
 
-# 载入核心逻辑文��
+# 载入核心逻辑文
 core.lua
