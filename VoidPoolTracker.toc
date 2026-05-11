@@ -5,7 +5,7 @@
 ## Author: Cedric 尽是风流
 ## Version: 1.0
 ## DefaultState: enabled
-
+## IconTexture: Interface\AddOns\VoidPoolTracker\Textures\icon-texture.jpg
 ## 关键设置：全账号共享数据库
 ## SavedVariables: VoidPool_DB, VoidPool_MinimapDB
 
