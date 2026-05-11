@@ -1,3 +1,6 @@
+local addonName, addonTable = ...
+-- 只有当前客户端语言匹配时才填充翻译
+if GetLocale() ~= "zhCN" then return end
 local L = {}
 
 -- 面板标题
