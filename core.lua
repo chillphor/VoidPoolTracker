@@ -1,13 +1,7 @@
--- 1. 加载本地化文件
-local locale = GetLocale()
-local L = {}
+local addonName, addonTable = ... -- 这两个变量由 WoW 系统自动传入
+local L = addonTable.L or {}      -- 从命名空间获取 L
 
--- 直接加载对应语言的本地化文件
-if locale == "zhCN" then
-    L = require("locales.zhCN")
-else
-    L = require("locales.enUS")
-end
+
 
 -- 设置默认备用文本（以防加载失败）
 if not L or not next(L) then
