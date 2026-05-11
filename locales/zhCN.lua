@@ -49,4 +49,5 @@ L["TIME_HOUR"] = "%d小时"
 L["TIME_MINUTE"] = "%d分"
 L["TIME_SECOND"] = "%d秒"
 
-return L
+-- 将 L 挂载到插件命名空间，供 core.lua 使用
+addonTable.L = L
