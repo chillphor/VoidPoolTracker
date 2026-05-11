@@ -1,3 +1,6 @@
+local addonName, addonTable = ...
+-- 英文通常作为默认语言，或者指定语言加载
+if GetLocale() ~= "enUS" then return end
 local L = {}
 
 -- UI Panel Titles
@@ -46,4 +49,4 @@ L["TIME_HOUR"] = "%dh"
 L["TIME_MINUTE"] = "%dm"
 L["TIME_SECOND"] = "%ds"
 
-return L
+addonTable.L = L
