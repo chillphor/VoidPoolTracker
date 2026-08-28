@@ -423,7 +423,7 @@ miniBtn:SetFrameLevel(10)
 miniBtn:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
 
 local icon = miniBtn:CreateTexture(nil, "BACKGROUND")
-icon:SetTexture(7658128)
+icon:SetTexture("Interface\\AddOns\\VoidPoolTracker\\Textures\\icon-texture.png")
 icon:SetSize(20, 20)
 icon:SetPoint("CENTER", 0, 0)
 
