@@ -14,14 +14,14 @@ L["BUTTON_SELECT_CHARACTER"] = "Select Character"
 L["BUTTON_CLOSE"] = "Close"
 
 -- Dungeons
-L["DUNGEON_ACADEMY"] = "Academy of Aeons"
-L["DUNGEON_PLATFORM"] = "Mage's Terrace"
-L["DUNGEON_NODE"] = "Zekvir's Lair"
-L["DUNGEON_MINES"] = "Sarkareth's Lair"
-L["DUNGEON_CONCLAVE"] = "Conclave of the Chosen"
-L["DUNGEON_PEAK"] = "Nerub-ar Palace"
-L["DUNGEON_WINDRUNNER"] = "Windrunner's Spire"
-L["DUNGEON_MESARA"] = "Mykazal's Den"
+L["DUNGEON_DUNGEON_KINGS_REST"] = "Kings' Rest"
+L["DUNGEON_TEMPLE_OF_SETHRALISS"] = "Temple of Sethraliss"
+L["DUNGEON_RUBY_LIFE_POOLS"] = "Ruby Life Pools"
+L["DUNGEON_THE_BLINDING_VALE"] = "The Blinding Vale"
+L["DUNGEON_VOIDSCAR_ARENA"] = "Voidscar Arena"
+L["DUNGEON_DEN_OF_NALORAKK"] = "Den of Nalorakk"
+L["DUNGEON_MURDER_ROW"] = "Murder Row"
+L["DUNGEON_ALTAR_OF_FANGS"] = "Altar of Fangs"
 
 -- Messages
 L["MSG_SYNC_SUCCESS"] = "[Void Query]: %s data synced successfully"

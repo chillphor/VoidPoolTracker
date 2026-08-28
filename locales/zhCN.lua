@@ -14,14 +14,14 @@ L["BUTTON_SELECT_CHARACTER"] = "选择查看角色"
 L["BUTTON_CLOSE"] = "关闭"
 
 -- 副本名称
-L["DUNGEON_ACADEMY"] = "艾杰斯亚学院"
-L["DUNGEON_PLATFORM"] = "魔导师平台"
-L["DUNGEON_NODE"] = "节点希纳斯"
-L["DUNGEON_MINES"] = "萨隆矿坑"
-L["DUNGEON_CONCLAVE"] = "执政团之座"
-L["DUNGEON_PEAK"] = "通天峰"
-L["DUNGEON_WINDRUNNER"] = "风行者之塔"
-L["DUNGEON_MESARA"] = "迈萨拉洞窟"
+L["DUNGEON_KINGS_REST"] = "诸王之眠"
+L["DUNGEON_TEMPLE_OF_SETHRALISS"] = "塞塔里斯神庙"
+L["DUNGEON_RUBY_LIFE_POOLS"] = "红玉新生法池"
+L["DUNGEON_THE_BLINDING_VALE"] = "夺目谷"
+L["DUNGEON_VOIDSCAR_ARENA"] = "虚空之痕竞技场"
+L["DUNGEON_DEN_OF_NALORAKK"] = "纳洛拉克的洞穴"
+L["DUNGEON_MURDER_ROW"] = "密谋小径"
+L["DUNGEON_ALTAR_OF_FANGS"] = "毒牙祭坛"
 
 -- 系统消息
 L["MSG_SYNC_SUCCESS"] = "[虚空查询]: %s 数据同步成功"
