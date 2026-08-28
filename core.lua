@@ -2,7 +2,7 @@ local addonName, addonTable = ... -- 这两个变量由 WoW 系统自动传入
 local L = addonTable.L or {}      -- 从命名空间获取 L
 
 
-
+--[[
 -- 设置默认备用文本（以防加载失败）
 if not L or not next(L) then
     L = {
@@ -16,11 +16,24 @@ if not L or not next(L) then
         ["DUNGEON_MESARA"] = "Mykazal's Den",
     }
 end
+--]]
+if not L or not next(L) then
+    L = {
+        ["DUNGEON_KINGS_REST"]      = "诸王之眠",
+        ["DUNGEON_TEMPLE_OF_SETHRALISS"]       = "塞塔里斯神庙",
+        ["DUNGEON_RUBY_LIFE_POOLS"]       = "红玉新生法池",
+        ["DUNGEON_THE_BLINDING_VALE"]    = "夺目谷",
+        ["DUNGEON_VOIDSCAR_ARENA"]   = "虚空之痕竞技场",
+        ["DUNGEON_DEN_OF_NALORAKK"]     = "纳洛拉克的洞穴",
+        ["DUNGEON_MURDER_ROW"]     = "密谋小径",
+        ["DUNGEON_ALTAR_OF_FANGS"]      = "毒牙祭坛",
+    }
+end
 
 -- 2. 配置数据：副本宝箱列表
 -- 【修改】：为每个副本添加 spellID 并使用本地化名称
-local DUNGEON_LIST = {
-    { name = L["DUNGEON_ACADEMY"] or "Academy of Aeons", id = 268465, spellID = 393273 },
+--[[local DUNGEON_LIST = {
+    { name = L["DUNGEON_ACADEMY"] or "Academy of Aeons", id = 268465, spellID = 393273 },--id为宝箱id
     { name = L["DUNGEON_PLATFORM"] or "Mage's Terrace", id = 268466, spellID = 1254572 },
     { name = L["DUNGEON_NODE"] or "Zekvir's Lair", id = 268467, spellID = 1254563 },
     { name = L["DUNGEON_MINES"] or "Sarkareth's Lair", id = 268468, spellID = 1254555 },
@@ -28,6 +41,18 @@ local DUNGEON_LIST = {
     { name = L["DUNGEON_PEAK"] or "Nerub-ar Palace", id = 268470, spellID = 159898 },
     { name = L["DUNGEON_WINDRUNNER"] or "Windrunner's Spire", id = 268471, spellID = 1254400 },
     { name = L["DUNGEON_MESARA"] or "Mykazal's Den", id = 268473, spellID = 1254559 },
+    
+}--]]
+-- 2. 配置数据：副本宝箱列表（适配 12.1 第二赛季）
+local DUNGEON_LIST = {
+    { name = L["DUNGEON_KINGS_REST"] or "Kings' Rest", id = 279621, spellID = 1286831 },
+    { name = L["DUNGEON_TEMPLE_OF_SETHRALISS"] or "Temple of Sethraliss", id = 279624, spellID = 1286828 },
+    { name = L["DUNGEON_RUBY_LIFE_POOLS"] or "Ruby Life Pools", id = 279622, spellID = 393256 },
+    { name = L["DUNGEON_THE_BLINDING_VALE"] or "The Blinding Vale", id = 279619, spellID = 1286801 },
+    { name = L["DUNGEON_VOIDSCAR_ARENA"] or "Voidscar Arena", id = 279625, spellID = 1286804 },
+    { name = L["DUNGEON_DEN_OF_NALORAKK"] or "Den of Nalorakk", id = 279620, spellID = 1286807 },
+    { name = L["DUNGEON_MURDER_ROW"] or "Murder Row", id = 279623, spellID = 1286809 },
+    { name = L["DUNGEON_ALTAR_OF_FANGS"] or "Altar of Fangs", id = 279618, spellID = 1286812 },
 }
 
 -- [新增] 辅助函数：格式化时间

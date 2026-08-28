@@ -1,4 +1,4 @@
-## Interface: 120005
+## Interface: 120100
 ## Title: |cff00ffffVoidPoolTracker|r
 ## Notes: 虚空宝箱全账号进度查询插件。
 ## Notes-enUS: Account-wide void pool loot query addon.
